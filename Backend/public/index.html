@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journeys</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Journeys</h1>
+    <ul id="journeys-list"></ul>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            axios.get('/api/journeys')
+                .then(response => {
+                    const journeys = response.data;
+                    const journeysList = document.getElementById('journeys-list');
+                    journeys.map(journey => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `Country: ${journey.country.name}, Start Date: ${new Date(journey.startDate).toLocaleDateString()}, End Date: ${new Date(journey.endDate).toLocaleDateString()}, Guide: ${journey.guide.name}`;
+                        journeysList.appendChild(listItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching journeys:', error);
+                });
+        });
+    </script>
+</body>
+</html>

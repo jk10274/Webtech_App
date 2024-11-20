@@ -7,8 +7,6 @@ const app = express();
 app.use(express.json());
 app.use('/api', journeyRoutes);
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+app.use(express.static('public'));
 
 export default app;

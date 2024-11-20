@@ -3,13 +3,15 @@ import { Country } from './Country';
 import { Guide } from './Guide';
 
 export class Journey {
+    private id: number;
     private country: Country;
     private startDate: Date;
     private endDate: Date;
     private cities: City[] = [];
     private guide: Guide;
 
-    constructor(country: Country, startDate: Date, endDate: Date, cities: City[], guide: Guide) {
+    constructor(id: number, country: Country, startDate: Date, endDate: Date, cities: City[], guide: Guide) {
+        this.id = id;
         this.country = country;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -23,6 +25,10 @@ export class Journey {
 
     removeCity(cityName: string): void {
         this.cities = this.cities.filter(city => city.getName() !== cityName);
+    }
+
+    getId(): number {
+        return this.id;
     }
 
     getCountry(): Country {
