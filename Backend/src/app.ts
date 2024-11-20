@@ -1,4 +1,5 @@
-// author: Jona Kaufmann
+// Author: Jona Kaufmann
+
 import express from 'express';
 import journeyRoutes from './routes/journey_routes';
 

@@ -1,3 +1,5 @@
+// Author: Jona Kaufmann
+
 export class Country {
     private name: string;
 

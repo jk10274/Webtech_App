@@ -1,3 +1,5 @@
+// Author: Jona Kaufmann
+
 import express, { Request, Response } from 'express';
 import { listJourneys } from '../controllers/journey_controller';
 import { createJourney } from '../controllers/journey_controller';

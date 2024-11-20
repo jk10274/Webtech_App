@@ -1,3 +1,5 @@
+// Author: Jona Kaufmann
+
 export class Guide {
     private name: string;
 

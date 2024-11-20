@@ -1,31 +1,71 @@
+<!-- Author: Jona Kaufmann -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Journeys</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JK Reisen</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-</head>
-<body>
-    <h1>Journeys</h1>
-    <ul id="journeys-list"></ul>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header Section -->
+      <header>
+        <div class="left-header">JK REISEN</div>
+        <div class="right-header">
+          <a href="/add-journey.html">HINZUFÜGEN</a>
+        </div>
+      </header>
 
+      <!-- Main Section -->
+      <main>
+        <!-- Description -->
+        <section class="content">
+          <div class="heading">REISEN</div>
+          <div class="details">
+            <div id="journeys-list"></div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Footer Section -->
+      <footer>
+        <p>© 2024 JK Reisen. All rights reserved.</p>
+      </footer>
+    </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            axios.get('/api/journeys')
-                .then(response => {
-                    const journeys = response.data;
-                    const journeysList = document.getElementById('journeys-list');
-                    journeys.map(journey => {
-                        const listItem = document.createElement('li');
-                        listItem.textContent = `Country: ${journey.country.name}, Start Date: ${new Date(journey.startDate).toLocaleDateString()}, End Date: ${new Date(journey.endDate).toLocaleDateString()}, Guide: ${journey.guide.name}`;
-                        journeysList.appendChild(listItem);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching journeys:', error);
-                });
-        });
+      document.addEventListener("DOMContentLoaded", function () {
+        axios
+          .get("/api/journeys")
+          .then((response) => {
+            const journeys = response.data;
+            const journeysList = document.getElementById("journeys-list");
+            journeys.map((journey) => {
+              const listItem = document.createElement("p");
+              const cities = journey.cities
+                .map((city) => `${city.name} (${city.days})`)
+                .join(", ");
+              listItem.innerHTML = `${
+                journey.country.name
+              }<br>${cities}<br>${new Date(
+                journey.startDate
+              ).toLocaleDateString()}<br>${new Date(
+                journey.endDate
+              ).toLocaleDateString()}<br>${journey.guide.name} <br><br>`;
+              journeysList.appendChild(listItem);
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching journeys:", error);
+          });
+      });
     </script>
-</body>
+  </body>
 </html>

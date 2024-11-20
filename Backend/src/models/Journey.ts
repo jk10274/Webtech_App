@@ -1,3 +1,5 @@
+// Author: Jona Kaufmann
+
 import { City } from './City';
 import { Country } from './Country';
 import { Guide } from './Guide';

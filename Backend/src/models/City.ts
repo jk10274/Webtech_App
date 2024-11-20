@@ -1,3 +1,5 @@
+// Author: Jona Kaufmann
+
 export class City {
     private name: string;
     private days: number;

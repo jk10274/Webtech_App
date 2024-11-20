@@ -1,0 +1,128 @@
+<!-- Author: Jona Kaufmann -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JK Reisen</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header Section -->
+      <header>
+        <div class="left-header">JK REISEN</div>
+        <div class="right-header">
+          <a href="/">ANZEIGEN</a>
+        </div>
+      </header>
+
+      <!-- Main Section -->
+      <main>
+        <!-- Description -->
+        <section class="content">
+          <div class="heading">REISE HINZUFÜGEN</div>
+          <div class="details">
+            <div id="journey-form">
+              <form id="add-journey-form">
+                <label for="country">Country:</label>
+                <input
+                  type="text"
+                  id="country"
+                  name="country"
+                  required
+                /><br /><br />
+
+                <label for="startDate">Start Date:</label>
+                <input
+                  type="date"
+                  id="startDate"
+                  name="startDate"
+                  required
+                /><br /><br />
+
+                <label for="endDate">End Date:</label>
+                <input
+                  type="date"
+                  id="endDate"
+                  name="endDate"
+                  required
+                /><br /><br />
+
+                <label for="cities"
+                  >Cities (z.B., Berlin (2), Munich (5)):</label
+                >
+                <input
+                  type="text"
+                  id="cities"
+                  name="cities"
+                  required
+                /><br /><br />
+
+                <label for="guide">Guide:</label>
+                <input
+                  type="text"
+                  id="guide"
+                  name="guide"
+                  required
+                /><br /><br />
+
+                <button type="submit">Add Journey</button>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Footer Section -->
+      <footer>
+        <p>© 2024 JK Reisen. All rights reserved.</p>
+      </footer>
+    </div>
+    <script>
+      document
+        .getElementById("add-journey-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const country = document.getElementById("country").value;
+          const startDate = document.getElementById("startDate").value;
+          const endDate = document.getElementById("endDate").value;
+          const guide = document.getElementById("guide").value;
+          const citiesInput = document.getElementById("cities").value;
+
+          const cities = citiesInput.split(",").map((city) => {
+            const [name, days] = city.trim().split("(");
+            return {
+              name: name.trim(),
+              days: parseInt(days),
+            };
+          });
+
+          axios
+            .post("/api/journeys", {
+              country: country,
+              startDate: startDate,
+              endDate: endDate,
+              cities: cities,
+              guide: guide,
+            })
+            .then((response) => {
+              alert("Hinzugefügt!");
+              document.getElementById("add-journey-form").reset();
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert("Failed to add journey.");
+            });
+        });
+    </script>
+  </body>
+</html>

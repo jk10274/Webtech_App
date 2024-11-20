@@ -1,3 +1,5 @@
+// Author: Jona Kaufmann
+
 import { Country } from "../models/Country";
 import { Journey } from "../models/Journey";
 import { Guide } from "../models/Guide";

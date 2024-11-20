@@ -1,3 +1,5 @@
+// Author: Jona Kaufmann
+
 import { Request, Response } from "express";
 import { getAllJourneys,updateJourneyById, deleteJourneyById } from "../services/journey_services";
 import { addJourney } from "../services/journey_services";

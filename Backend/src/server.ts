@@ -1,3 +1,5 @@
+// Author: Jona Kaufmann
+
 import app from './app';
 import dotenv from 'dotenv';
 
