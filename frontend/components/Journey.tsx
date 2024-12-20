@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { getJourneyById } from '@/services/journeyService';
 
 interface JourneyProps {
   journeyId: number;
@@ -11,8 +12,8 @@ const Journey: React.FC<JourneyProps> = ({ journeyId }) => {
   useEffect(() => {
     const fetchJourney = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/journeys/${journeyId}`);
-        setJourney(response.data);
+        const journeyData = await getJourneyById(journeyId);
+        setJourney(journeyData);
       } catch (error) {
         console.error('Error fetching journey:', error);
       }
@@ -25,7 +26,6 @@ const Journey: React.FC<JourneyProps> = ({ journeyId }) => {
 
   return (
     <div>
-      <h1>Journey Details</h1>
       <p><strong>Country:</strong> {journey.country.name}</p>
       <p><strong>Start Date:</strong> {new Date(journey.startDate).toLocaleDateString()}</p>
       <p><strong>End Date:</strong> {new Date(journey.endDate).toLocaleDateString()}</p>

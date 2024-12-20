@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { updateJourney, getJourneyById } from '@/services/journeyService';
 
 interface EditJourneyFormProps {
   journeyId: number;
@@ -11,8 +12,8 @@ const EditJourneyForm: React.FC<EditJourneyFormProps> = ({ journeyId }) => {
   useEffect(() => {
     const fetchJourney = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/journeys/${journeyId}`);
-        setFormData(response.data);
+        const journey = await getJourneyById(journeyId);
+        setFormData(journey);
       } catch (error) {
         console.error('Error fetching journey:', error);
       }
@@ -41,7 +42,7 @@ const EditJourneyForm: React.FC<EditJourneyFormProps> = ({ journeyId }) => {
     if (!formData) return;
     try {
       console.log(`Ausgabe: ${JSON.stringify(formData.country)}`)
-      await axios.put(`http://localhost:3000/api/journeys/${journeyId}`, formData);
+      await updateJourney(journeyId, formData);
       alert('Journey updated successfully!');
     } catch (error) {
       console.error('Error updating journey:', error);

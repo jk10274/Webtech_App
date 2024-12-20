@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { createJourney } from '@/services/journeyService';
+import Journey from './Journey';
 
 const AddJourneyForm: React.FC = () => {
   const [country, setCountry] = useState('');
@@ -19,15 +21,17 @@ const AddJourneyForm: React.FC = () => {
       };
     });
 
-    axios
-      .post('http://localhost:3000/api/journeys', {
-        country: country,
-        startDate: startDate,
-        endDate: endDate,
-        cities: citiesArray,
-        guide: guide,
-      })
-      .then((response) => {
+    const journey = {
+      country: country,
+      startDate: startDate,
+      endDate: endDate,
+      cities: citiesArray,
+      guide: guide,
+    };
+
+    createJourney(journey);
+    createJourney(journey)
+      .then(() => {
         alert('Journey added successfully!');
         setCountry('');
         setStartDate('');

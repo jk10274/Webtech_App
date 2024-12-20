@@ -2,28 +2,31 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import styles from './JourneysTable.module.css';
+import { getJourneys, deleteJourney } from '@/services/journeyService';
 
 const JourneysTable: React.FC = () => {
   const [journeys, setJourneys] = useState<Journey[]>([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/journeys')
-      .then(response => {
-        setJourneys(response.data);
-      })
-      .catch(error => {
+    const fetchJourneys = async () => {
+      try {
+        const data = await getJourneys();
+        setJourneys(data);
+      } catch (error) {
         console.error('There was an error fetching the journeys!', error);
-      });
+      }
+    };
+
+    fetchJourneys();
   }, []);
 
-  const handleDelete = (id: number) => {
-    axios.delete(`http://localhost:3000/api/journeys/${id}`)
-      .then(() => {
-        setJourneys(journeys.filter(journey => journey.id !== id));
-      })
-      .catch(error => {
-        console.error('There was an error deleting the journey!', error);
-      });
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteJourney(id);
+      setJourneys(journeys.filter(journey => journey.id !== id));
+    } catch (error) {
+      console.error('There was an error deleting the journey!', error);
+    }
   };
 
   return (
