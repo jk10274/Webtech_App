@@ -1,8 +1,10 @@
+// Author: Jona Kaufmann
+
 "use client";
 
-import React from 'react';
-import { useParams } from 'next/navigation';
-import EditJourneyForm from '@/components/EditJourneyForm';
+import React from "react";
+import { useParams } from "next/navigation";
+import EditJourneyForm from "@/components/EditJourneyForm";
 
 const EditJourneyPage: React.FC = () => {
   const params = useParams();

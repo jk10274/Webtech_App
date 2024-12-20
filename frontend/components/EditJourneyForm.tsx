@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { updateJourney, getJourneyById } from '@/services/journeyService';
+// Author: Jona Kaufmann
+
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { updateJourney, getJourneyById } from "@/services/journeyService";
 
 interface EditJourneyFormProps {
   journeyId: number;
@@ -15,7 +17,7 @@ const EditJourneyForm: React.FC<EditJourneyFormProps> = ({ journeyId }) => {
         const journey = await getJourneyById(journeyId);
         setFormData(journey);
       } catch (error) {
-        console.error('Error fetching journey:', error);
+        console.error("Error fetching journey:", error);
       }
     };
 
@@ -26,9 +28,9 @@ const EditJourneyForm: React.FC<EditJourneyFormProps> = ({ journeyId }) => {
     const { name, value } = e.target;
     setFormData((prevData) => {
       if (!prevData) return null;
-      if (name === 'cities') {
-        const citiesArray = value.split(',').map((city) => {
-          const [cityName, days] = city.trim().split('(');
+      if (name === "cities") {
+        const citiesArray = value.split(",").map((city) => {
+          const [cityName, days] = city.trim().split("(");
           return { name: cityName.trim(), days: parseInt(days) };
         });
         return { ...prevData, cities: citiesArray };
@@ -41,12 +43,12 @@ const EditJourneyForm: React.FC<EditJourneyFormProps> = ({ journeyId }) => {
     e.preventDefault();
     if (!formData) return;
     try {
-      console.log(`Ausgabe: ${JSON.stringify(formData.country)}`)
+      console.log(`Ausgabe: ${JSON.stringify(formData.country)}`);
       await updateJourney(journeyId, formData);
-      alert('Journey updated successfully!');
+      alert("Journey updated successfully!");
     } catch (error) {
-      console.error('Error updating journey:', error);
-      alert('Failed to update journey.');
+      console.error("Error updating journey:", error);
+      alert("Failed to update journey.");
     }
   };
 
@@ -61,7 +63,9 @@ const EditJourneyForm: React.FC<EditJourneyFormProps> = ({ journeyId }) => {
           id="country"
           name="country"
           value={formData.country.name}
-          onChange={(e) => setFormData({ ...formData, country: { name: e.target.value } })}
+          onChange={(e) =>
+            setFormData({ ...formData, country: { name: e.target.value } })
+          }
         />
       </div>
       <div>
@@ -70,8 +74,10 @@ const EditJourneyForm: React.FC<EditJourneyFormProps> = ({ journeyId }) => {
           type="date"
           id="startDate"
           name="startDate"
-          value={formData.startDate.split('T')[0]}
-          onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+          value={formData.startDate.split("T")[0]}
+          onChange={(e) =>
+            setFormData({ ...formData, startDate: e.target.value })
+          }
         />
       </div>
       <div>
@@ -80,8 +86,10 @@ const EditJourneyForm: React.FC<EditJourneyFormProps> = ({ journeyId }) => {
           type="date"
           id="endDate"
           name="endDate"
-          value={formData.endDate.split('T')[0]}
-          onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
+          value={formData.endDate.split("T")[0]}
+          onChange={(e) =>
+            setFormData({ ...formData, endDate: e.target.value })
+          }
         />
       </div>
       <div>
@@ -90,7 +98,9 @@ const EditJourneyForm: React.FC<EditJourneyFormProps> = ({ journeyId }) => {
           type="text"
           id="cities"
           name="cities"
-          value={formData.cities.map((city) => `${city.name} (${city.days})`).join(', ')}
+          value={formData.cities
+            .map((city) => `${city.name} (${city.days})`)
+            .join(", ")}
           onChange={handleChange}
         />
       </div>
@@ -101,7 +111,9 @@ const EditJourneyForm: React.FC<EditJourneyFormProps> = ({ journeyId }) => {
           id="guide"
           name="guide"
           value={formData.guide.name}
-          onChange={(e) => setFormData({ ...formData, guide: { name: e.target.value }})}
+          onChange={(e) =>
+            setFormData({ ...formData, guide: { name: e.target.value } })
+          }
         />
       </div>
       <button type="submit">UPDATE JOURNEY</button>

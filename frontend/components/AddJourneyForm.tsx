@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { createJourney } from '@/services/journeyService';
-import Journey from './Journey';
+// Author: Jona Kaufmann
+
+import React, { useState } from "react";
+import axios from "axios";
+import { createJourney } from "@/services/journeyService";
+import Journey from "./Journey";
 
 const AddJourneyForm: React.FC = () => {
-  const [country, setCountry] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [guide, setGuide] = useState('');
-  const [cities, setCities] = useState('');
+  const [country, setCountry] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [guide, setGuide] = useState("");
+  const [cities, setCities] = useState("");
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const citiesArray = cities.split(',').map((city) => {
-      const [name, days] = city.trim().split('(');
+    const citiesArray = cities.split(",").map((city) => {
+      const [name, days] = city.trim().split("(");
       return {
         name: name.trim(),
         days: parseInt(days),
@@ -32,16 +34,16 @@ const AddJourneyForm: React.FC = () => {
     createJourney(journey);
     createJourney(journey)
       .then(() => {
-        alert('Journey added successfully!');
-        setCountry('');
-        setStartDate('');
-        setEndDate('');
-        setGuide('');
-        setCities('');
+        alert("Journey added successfully!");
+        setCountry("");
+        setStartDate("");
+        setEndDate("");
+        setGuide("");
+        setCities("");
       })
       .catch((error) => {
-        console.error('Error:', error);
-        alert('Failed to add journey.');
+        console.error("Error:", error);
+        alert("Failed to add journey.");
       });
   };
 

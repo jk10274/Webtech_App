@@ -1,3 +1,5 @@
+/* Author: Jona Kaufmann */
+
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -6,11 +8,12 @@
   text-align: left;
 }
 
-.table th, .table td {
+.table th,
+.table td {
   padding: 12px 15px;
   border: 1px solid #333;
 }
 
 .actions {
-    padding-right: 24px;
+  padding-right: 24px;
 }

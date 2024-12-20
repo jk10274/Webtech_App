@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Link from 'next/link';
-import styles from './JourneysTable.module.css';
-import { getJourneys, deleteJourney } from '@/services/journeyService';
+// Author: Jona Kaufmann
+
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import styles from "./JourneysTable.module.css";
+import { getJourneys, deleteJourney } from "@/services/journeyService";
 
 const JourneysTable: React.FC = () => {
   const [journeys, setJourneys] = useState<Journey[]>([]);
@@ -13,7 +14,7 @@ const JourneysTable: React.FC = () => {
         const data = await getJourneys();
         setJourneys(data);
       } catch (error) {
-        console.error('There was an error fetching the journeys!', error);
+        console.error("There was an error fetching the journeys!", error);
       }
     };
 
@@ -23,9 +24,9 @@ const JourneysTable: React.FC = () => {
   const handleDelete = async (id: number) => {
     try {
       await deleteJourney(id);
-      setJourneys(journeys.filter(journey => journey.id !== id));
+      setJourneys(journeys.filter((journey) => journey.id !== id));
     } catch (error) {
-      console.error('There was an error deleting the journey!', error);
+      console.error("There was an error deleting the journey!", error);
     }
   };
 
@@ -43,7 +44,7 @@ const JourneysTable: React.FC = () => {
         </tr>
       </thead>
       <tbody>
-        {journeys.map(journey => (
+        {journeys.map((journey) => (
           <tr key={journey.id}>
             <td>{journey.id}</td>
             <td>{journey.country.name}</td>
@@ -59,11 +60,14 @@ const JourneysTable: React.FC = () => {
                 ))}
               </ul>
             </td>
-            <td >
+            <td>
               <Link className={styles.actions} href={`/journeys/${journey.id}`}>
                 Details
               </Link>
-              <Link className={styles.actions} href={`/journeys/${journey.id}/edit`}>
+              <Link
+                className={styles.actions}
+                href={`/journeys/${journey.id}/edit`}
+              >
                 Edit
               </Link>
               <button onClick={() => handleDelete(journey.id)}>DELETE</button>

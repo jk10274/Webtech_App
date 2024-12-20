@@ -1,4 +1,6 @@
-import React from 'react';
+// Author: Jona Kaufmann
+
+import React from "react";
 
 interface TextInputProps {
   label: string;
@@ -7,11 +9,22 @@ interface TextInputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const TextInput: React.FC<TextInputProps> = ({ label, name, value, onChange }) => {
+const TextInput: React.FC<TextInputProps> = ({
+  label,
+  name,
+  value,
+  onChange,
+}) => {
   return (
     <div>
       <label htmlFor={name}>{label}</label>
-      <input type="text" id={name} name={name} value={value} onChange={onChange} />
+      <input
+        type="text"
+        id={name}
+        name={name}
+        value={value}
+        onChange={onChange}
+      />
     </div>
   );
 };

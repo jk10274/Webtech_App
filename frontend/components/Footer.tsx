@@ -1,4 +1,6 @@
-import React from 'react';
+// Author: Jona Kaufmann
+
+import React from "react";
 
 const Footer: React.FC = () => {
   return (

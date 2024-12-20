@@ -1,13 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_URL = 'http://localhost:3000/api/journeys';
+const API_URL = "http://localhost:3000/api/journeys";
 
 export const getJourneys = async () => {
   try {
     const response = await axios.get(API_URL);
     return response.data;
   } catch (error) {
-    console.error('Error fetching journeys:', error);
+    console.error("Error fetching journeys:", error);
     throw error;
   }
 };
@@ -37,7 +37,7 @@ export const createJourney = async (journey: any) => {
     const response = await axios.post(API_URL, journey);
     return response.data;
   } catch (error) {
-    console.error('Error creating journey:', error);
+    console.error("Error creating journey:", error);
     throw error;
   }
 };

@@ -1,8 +1,10 @@
+// Author: Jona Kaufmann
+
 "use client";
 
-import React from 'react';
-import { useParams } from 'next/navigation';
-import Journey from '@/components/Journey';
+import React from "react";
+import { useParams } from "next/navigation";
+import Journey from "@/components/Journey";
 
 const JourneyPage: React.FC = () => {
   const params = useParams();
