@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import styles from './JourneysTable.module.css';
 
 const JourneysTable: React.FC = () => {
   const [journeys, setJourneys] = useState<Journey[]>([]);
@@ -26,7 +27,7 @@ const JourneysTable: React.FC = () => {
   };
 
   return (
-    <table>
+    <table className={styles.table}>
       <thead>
         <tr>
           <th>ID</th>
@@ -35,7 +36,7 @@ const JourneysTable: React.FC = () => {
           <th>End Date</th>
           <th>Guide</th>
           <th>City</th>
-          <th>Actions</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -55,14 +56,14 @@ const JourneysTable: React.FC = () => {
                 ))}
               </ul>
             </td>
-            <td>
-              <Link href={`/journeys/${journey.id}`}>
+            <td >
+              <Link className={styles.actions} href={`/journeys/${journey.id}`}>
                 Details
               </Link>
-              <Link href={`/journeys/${journey.id}/edit`}>
+              <Link className={styles.actions} href={`/journeys/${journey.id}/edit`}>
                 Edit
               </Link>
-              <button onClick={() => handleDelete(journey.id)}>Delete</button>
+              <button onClick={() => handleDelete(journey.id)}>DELETE</button>
             </td>
           </tr>
         ))}

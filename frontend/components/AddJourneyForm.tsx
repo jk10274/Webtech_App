@@ -88,7 +88,7 @@ const AddJourneyForm: React.FC = () => {
           onChange={(e) => setCities(e.target.value)}
         />
       </div>
-      <button type="submit">Add Journey</button>
+      <button type="submit">ADD JOURNEY</button>
     </form>
   );
 };

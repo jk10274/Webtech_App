@@ -103,7 +103,7 @@ const EditJourneyForm: React.FC<EditJourneyFormProps> = ({ journeyId }) => {
           onChange={(e) => setFormData({ ...formData, guide: { name: e.target.value }})}
         />
       </div>
-      <button type="submit">Update Journey</button>
+      <button type="submit">UPDATE JOURNEY</button>
     </form>
   );
 };

@@ -76,3 +76,14 @@ footer {
   margin-top: 40px;
   font-size: 14px;
 }
+
+/* Reset button styles */
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: 1px solid #333;
+  padding: 10px 20px;
+  cursor: pointer;
+}

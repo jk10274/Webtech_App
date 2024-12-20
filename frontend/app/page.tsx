@@ -18,7 +18,8 @@ export default function Home() {
 
   return (
     <div>
-      <p>LANDING PAGE</p>
+      <h1>Verwalte Reisen</h1>
+      <p>Über den Button "Reise Hinzufügen" kannst du dein Reisen auf dieser Seite hinzufügen und sie anschließend verwalten.</p>
     </div>
   );
 }
