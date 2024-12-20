@@ -12,6 +12,16 @@ export const listJourneys = (req: Request, res: Response) => {
     res.send(journeys);
 }
 
+export const getJourney = (req: Request, res: Response) => {
+    const id = parseInt(req.params.id);
+    const journey = getAllJourneys().find(journey => journey.getId() === id);
+    if (journey) {
+        res.send(journey);
+    } else {
+        res.status(404).send("Journey not found");
+    }
+}
+
 export const createJourney = (req: Request, res: Response) => {
     try {
         const { country, startDate, endDate, cities, guide } = req.body;
@@ -42,11 +52,13 @@ export const updateJourney = (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
     const { country, startDate, endDate, cities, guide } = req.body;
 
+    console.log(country)
+
     if (!country || !startDate || !endDate || !guide) {
         return res.status(400).send("Missing required fields");
     }
 
-    const updatedJourney = updateJourneyById(id, new Country(country), new Date(startDate), new Date(endDate), cities, new Guide(guide));
+    const updatedJourney = updateJourneyById(id, country, new Date(startDate), new Date(endDate), cities, guide);
     if (updatedJourney) {
         res.send(updatedJourney);
     } else {

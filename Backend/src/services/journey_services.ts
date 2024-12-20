@@ -4,7 +4,6 @@ import { Country } from "../models/Country";
 import { Journey } from "../models/Journey";
 import { Guide } from "../models/Guide";
 import { City } from "../models/City";
-import e from "express";
 
 const journeys: Journey[] = [];
 let nextId = 1;

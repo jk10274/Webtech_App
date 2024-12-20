@@ -5,11 +5,16 @@ import { listJourneys } from '../controllers/journey_controller';
 import { createJourney } from '../controllers/journey_controller';
 import { updateJourney } from '../controllers/journey_controller';
 import { deleteJourney } from '../controllers/journey_controller';
+import { getJourney } from '../controllers/journey_controller';
 
 const router = express.Router();
 
 router.get('/journeys', (req: Request, res: Response) => {
     listJourneys(req, res);
+});
+
+router.get('/journeys/:id', (req: Request, res: Response) => {
+    getJourney(req, res);
 });
 
 router.post('/journeys', (req: Request, res: Response) => {
