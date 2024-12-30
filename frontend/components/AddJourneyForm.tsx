@@ -31,7 +31,6 @@ const AddJourneyForm: React.FC = () => {
       guide: guide,
     };
 
-    createJourney(journey);
     createJourney(journey)
       .then(() => {
         alert("Journey added successfully!");
