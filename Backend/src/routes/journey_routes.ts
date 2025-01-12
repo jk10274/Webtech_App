@@ -1,20 +1,21 @@
 // Author: Jona Kaufmann
 
 import express, { Request, Response } from 'express';
-import { listJourneys } from '../controllers/journey_controller';
-import { createJourney } from '../controllers/journey_controller';
-import { updateJourney } from '../controllers/journey_controller';
-import { deleteJourney } from '../controllers/journey_controller';
-import { getJourney } from '../controllers/journey_controller';
+import { listJourneys } from '../controllers/journey_controller';/* 
+import { createJourney } from '../controllers/journey_controller'; */
+/* import { updateJourney } from '../controllers/journey_controller'; */
+/* import { deleteJourney } from '../controllers/journey_controller';
+ */import { getJourney } from '../controllers/journey_controller';
+import { getAllJourneys, getJourneyById, updateJourney, createJourney, deleteJourney } from '../controllers/journeyController';
 
 const router = express.Router();
 
 router.get('/journeys', (req: Request, res: Response) => {
-    listJourneys(req, res);
+    getAllJourneys(req, res);
 });
 
 router.get('/journeys/:id', (req: Request, res: Response) => {
-    getJourney(req, res);
+    getJourneyById(req, res);
 });
 
 router.post('/journeys', (req: Request, res: Response) => {
