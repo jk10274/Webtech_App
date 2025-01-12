@@ -12,7 +12,7 @@ export const getJourneys = async () => {
   }
 };
 
-export const getJourneyById = async (id: number) => {
+export const getJourneyById = async (id: String) => {
   try {
     const response = await axios.get(`${API_URL}/${id}`);
     return response.data;
@@ -22,7 +22,7 @@ export const getJourneyById = async (id: number) => {
   }
 };
 
-export const updateJourney = async (id: number, journey: any) => {
+export const updateJourney = async (id: String, journey: any) => {
   try {
     const response = await axios.put(`${API_URL}/${id}`, journey);
     return response.data;
@@ -42,7 +42,7 @@ export const createJourney = async (journey: any) => {
   }
 };
 
-export const deleteJourney = async (id: number) => {
+export const deleteJourney = async (id: String) => {
   try {
     await axios.delete(`${API_URL}/${id}`);
   } catch (error) {

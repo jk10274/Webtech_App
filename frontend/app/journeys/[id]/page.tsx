@@ -15,7 +15,7 @@ const JourneyPage: React.FC = () => {
   return (
     <div>
       <h1>Journey Details</h1>
-      <Journey journeyId={parseInt(id, 10)} />
+      <Journey journeyId={id} />
     </div>
   );
 };

@@ -5,7 +5,7 @@ import axios from "axios";
 import { getJourneyById } from "@/services/journeyService";
 
 interface JourneyProps {
-  journeyId: number;
+  journeyId: String;
 }
 
 const Journey: React.FC<JourneyProps> = ({ journeyId }) => {

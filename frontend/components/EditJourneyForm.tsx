@@ -1,11 +1,10 @@
 // Author: Jona Kaufmann
 
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { updateJourney, getJourneyById } from "@/services/journeyService";
 
 interface EditJourneyFormProps {
-  journeyId: number;
+  journeyId: String;
 }
 
 const EditJourneyForm: React.FC<EditJourneyFormProps> = ({ journeyId }) => {

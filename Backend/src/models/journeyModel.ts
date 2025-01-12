@@ -1,17 +1,26 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
-export interface iJourney {
+export interface iJourney extends Document {
     country: string;
     startDate: Date;
     endDate: Date;
 }
 
-const journeySchema = new mongoose.Schema({
+const journeySchema = new Schema({
     country: { type: String, required: true },
     startDate: { type: Date, required: true },
-    endDate: { type: Date, required: true }
+    endDate: { type: Date, required: true },
+    cities: [
+        {
+            name: { type: String, required: true },
+            days: { type: Number, required: true }
+        }
+    ],
+    guide: {
+        name: { type: String, required: true }
+    }
 });
 
-const Journey = mongoose.model('Journey', journeySchema);
+const Journey = mongoose.model<iJourney>('Journey', journeySchema);
 
 export default Journey;

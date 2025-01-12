@@ -21,7 +21,7 @@ const JourneysTable: React.FC = () => {
     fetchJourneys();
   }, []);
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: any) => {
     try {
       await deleteJourney(id);
       setJourneys(journeys.filter((journey) => journey.id !== id));

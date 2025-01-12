@@ -1,15 +1,21 @@
-import Journey from "../models/journeyModel";
+import Journey, {iJourney} from "../models/journeyModel";
 
 import { Request, Response } from "express";
 
 async function getAllJourneys(req: Request, res: Response) {
     try {
-        console.log("Getting all journeys");
         const journeys = await Journey.find();
-        console.log(journeys);
-        res.status(200).send(journeys);
+        const formattedJourneys = journeys.map((journey: iJourney) => ({
+            id: journey._id,
+            country: { name: journey.country},
+            startDate: journey.startDate,
+            endDate: journey.endDate,
+            cities: [{ name: "Sample City", days: 1 }],
+            guide: { name: "Sample Guide" }
+        }));
+        res.status(200).send(formattedJourneys);
     } catch (error) {
-        console.error("Error getting all journeys:", error);
+        console.error("Error fetching journeys:", error);
         res.status(500).send({ error: "Internal Server Error" });
     }
 }
@@ -17,10 +23,22 @@ async function getAllJourneys(req: Request, res: Response) {
 async function createJourney(req: Request, res: Response) {
     try {
         console.log("Creating journey");
-        const journey = new Journey(req.body);
+        const { country, startDate, endDate, cities, guide } = req.body;
+
+        // Transform the incoming data to match the backend format
+        const transformedJourney = {
+            country: country,
+            startDate: new Date(startDate),
+            endDate: new Date(endDate),
+            cities: [{ name: "Sample City", days: 1 }],
+            guide: { name: "Sample Guide" }
+        };
+
+        const journey = new Journey(transformedJourney);
         const result = await journey.save();
         res.status(201).send(result);
-    } catch {
+    } catch (error) {
+        console.error("Error creating journey:", error);
         res.status(500).send({ error: "Internal Server Error" });
     }
 }
@@ -30,11 +48,20 @@ async function getJourneyById(req: Request, res: Response) {
         console.log("Getting journey by id");
         const journey = await Journey.findById(req.params.id);
         if (journey) {
-            res.status(200).send(journey);
+            const formattedJourney = {
+                id: journey._id,
+                country: { name: journey.country},
+                startDate: journey.startDate,
+                endDate: journey.endDate,
+                cities: [{ name: "Sample City", days: 1 }],
+                guide: { name: "Sample Guide" }
+            };
+            res.status(200).send(formattedJourney);
         } else {
             res.status(404).send({ error: "Journey not found" });
         }
-    } catch {
+    } catch (error) {
+        console.error(`Error fetching journey with id ${req.params.id}:`, error);
         res.status(500).send({ error: "Internal Server Error" });
     }
 }
@@ -43,8 +70,19 @@ async function updateJourney(req: Request, res: Response) {
     try {
         console.log("Updating journey");
         const journeyId = req.params.id;
-        const updateData = req.body;
-        const journey = await Journey.findByIdAndUpdate(journeyId, updateData, { new: true });
+        const { country, startDate, endDate, cities, guide } = req.body;
+
+
+        // Transform the incoming data to match the backend format
+        const transformedJourney = {
+            country: typeof country === 'object' ? country.name : country,
+            startDate: new Date(startDate),
+            endDate: new Date(endDate),
+            cities: [{ name: "Sample City", days: 1 }],
+            guide: { name: "Sample Guide" }
+        };
+
+        const journey = await Journey.findByIdAndUpdate(journeyId, transformedJourney, { new: true });
         if (journey) {
             res.status(200).send(journey);
         } else {
