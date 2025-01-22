@@ -1,112 +1,91 @@
-import Journey, { iJourney } from "../models/journeyModel";
+// Author: Jona Kaufmann
 
-import { Request, Response } from "express";
+import { Journey } from "../models/Journey";
+import JourneyService from "../services/JourneyService";
 
-async function getAllJourneys(req: Request, res: Response) {
+class JourneyController {
+  private journeyService: JourneyService;
+
+  constructor(journeyService: JourneyService) {
+    this.journeyService = journeyService;
+  }
+
+  public getAllJourneys = async (req: any, res: any) => {
     try {
-        const journeys = await Journey.find();
-        const formattedJourneys = journeys.map((journey: iJourney) => ({
-            id: journey._id,
-            country: { name: journey.country },
-            startDate: journey.startDate,
-            endDate: journey.endDate,
-            cities: [{ name: "Sample City", days: 1 }],
-            guide: { name: "Sample Guide" }
-        }));
-        res.status(200).send(formattedJourneys);
+      const journeys = await this.journeyService.getAllJourneys();
+      res.status(200).json(journeys);
     } catch (error) {
-        console.error("Error fetching journeys:", error);
-        res.status(500).send({ error: "Internal Server Error" });
+      res.status(500).json({ message: "Error retrieving journeys", error });
     }
+  };
+
+  public getJourney = async (req: any, res: any) => {
+    try {
+      const id = req.params.id;
+      const journey = await this.journeyService.getJourneyById(id);
+      if (journey) {
+        res.status(200).json(journey);
+      } else {
+        res.status(404).json({ message: "Journey not found" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Error retrieving journey", error });
+    }
+  };
+
+  public addJourney = async (req: any, res: any) => {
+    try {
+      const { destinationCountry, startDate, endDate, tourguide } = req.body;
+      const journey = await this.journeyService.addJourney(
+        destinationCountry,
+        new Date(startDate),
+        new Date(endDate),
+        tourguide
+      );
+      res.status(201).json(journey);
+    } catch (error) {
+      res.status(500).json({ message: "Error adding journey", error });
+    }
+  };
+
+  public updateJourney = async (req: any, res: any) => {
+    try {
+      const id = req.params.id;
+      const { destinationCountry, startDate, endDate, tourguide } = req.body;
+      const updatedJourney = new Journey(
+        id,
+        destinationCountry,
+        new Date(startDate),
+        new Date(endDate),
+        tourguide
+      );
+      const result = await this.journeyService.updateJourney(
+        id,
+        updatedJourney
+      );
+      if (result !== null) {
+        res.status(200).json(updatedJourney);
+      } else {
+        res.status(404).json({ message: "Journey not found" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Error updating journey", error });
+    }
+  };
+
+  public deleteJourney = async (req: any, res: any) => {
+    try {
+      const id = req.params.id;
+      const index = await this.journeyService.deleteJourney(id);
+      if (index !== null) {
+        res.status(200).json({ message: "Journey deleted" });
+      } else {
+        res.status(404).json({ message: "Journey not found" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Error deleting journey", error });
+    }
+  };
 }
 
-async function createJourney(req: Request, res: Response) {
-    try {
-        console.log("Creating journey");
-        const { country, startDate, endDate, cities, guide } = req.body;
-
-        // Transform the incoming data to match the backend format
-        const transformedJourney = {
-            country: country,
-            startDate: new Date(startDate),
-            endDate: new Date(endDate),
-            cities: [{ name: "Sample City", days: 1 }],
-            guide: { name: "Sample Guide" }
-        };
-
-        const journey = new Journey(transformedJourney);
-        const result = await journey.save();
-        res.status(201).send(result);
-    } catch (error) {
-        console.error("Error creating journey:", error);
-        res.status(500).send({ error: "Internal Server Error" });
-    }
-}
-
-async function getJourneyById(req: Request, res: Response) {
-    try {
-        console.log("Getting journey by id");
-        const journey = await Journey.findById(req.params.id);
-        if (journey) {
-            const formattedJourney = {
-                id: journey._id,
-                country: { name: journey.country},
-                startDate: journey.startDate,
-                endDate: journey.endDate,
-                cities: [{ name: "Sample City", days: 1 }],
-                guide: { name: "Sample Guide" }
-            };
-            res.status(200).send(formattedJourney);
-        } else {
-            res.status(404).send({ error: "Journey not found" });
-        }
-    } catch (error) {
-        console.error(`Error fetching journey with id ${req.params.id}:`, error);
-        res.status(500).send({ error: "Internal Server Error" });
-    }
-}
-
-async function updateJourney(req: Request, res: Response) {
-    try {
-        console.log("Updating journey");
-        const journeyId = req.params.id;
-        const { country, startDate, endDate, cities, guide } = req.body;
-
-
-        // Transform the incoming data to match the backend format
-        const transformedJourney = {
-            country: typeof country === 'object' ? country.name : country,
-            startDate: new Date(startDate),
-            endDate: new Date(endDate),
-            cities: [{ name: "Sample City", days: 1 }],
-            guide: { name: "Sample Guide" }
-        };
-
-        const journey = await Journey.findByIdAndUpdate(journeyId, transformedJourney, { new: true });
-        if (journey) {
-            res.status(200).send(journey);
-        } else {
-            res.status(404).send({ error: "Journey not found" });
-        }
-    } catch (error) {
-        console.error("Error updating journey:", error);
-        res.status(500).send({ error: "Internal Server Error" });
-    }
-}
-
-async function deleteJourney(req: Request, res: Response) {
-    try {
-        console.log("Deleting journey");
-        const journey = await Journey.findByIdAndDelete(req.params.id);
-        if (journey) {
-            res.status(200).send(journey);
-        } else {
-            res.status(404).send({ error: "Journey not found" });
-        }
-    } catch (error) {
-        console.error("Error deleting journey:", error);
-        res.status(500).send({ error: "Internal Server Error" });
-    }
-}
-
-export { getAllJourneys, createJourney, getJourneyById, updateJourney, deleteJourney };
+export default JourneyController;

@@ -1,55 +1,53 @@
 // Author: Jona Kaufmann
 
-import { City } from './City';
-import { Country } from './Country';
-import { Guide } from './Guide';
-
 export class Journey {
-    private id: number;
-    private country: Country;
-    private startDate: Date;
-    private endDate: Date;
-    private cities: City[] = [];
-    private guide: Guide;
+  public id: string;
+  public destinationCountry: string;
+  public startDate: Date;
+  public endDate: Date;
 
-    constructor(id: number, country: Country, startDate: Date, endDate: Date, cities: City[], guide: Guide) {
-        this.id = id;
-        this.country = country;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.cities = cities;
-        this.guide = guide;
-    }
+  constructor(
+    id: string,
+    destinationCountry: string,
+    startDate: Date,
+    endDate: Date,
+    tourguide: string
+  ) {
+    this.id = id;
+    this.destinationCountry = destinationCountry;
+    this.startDate = startDate;
+    this.endDate = endDate;
+  }
 
-    addCity(city: City): void {
-        this.cities.push(city);
-    }
+  public getId(): string {
+    return this.id;
+  }
 
-    removeCity(cityName: string): void {
-        this.cities = this.cities.filter(city => city.getName() !== cityName);
-    }
+  public getDestinationCountry(): string {
+    return this.destinationCountry;
+  }
 
-    getId(): number {
-        return this.id;
-    }
+  public getStartDate(): Date {
+    return this.startDate;
+  }
 
-    getCountry(): Country {
-        return this.country;
-    }
+  public getEndDate(): Date {
+    return this.endDate;
+  }
 
-    getStartDate(): Date {
-        return this.startDate;
-    }
+  public setId(id: string): void {
+    this.id = id;
+  }
 
-    getEndDate(): Date {
-        return this.endDate;
-    }
+  public setDestinationCountry(destinationCountry: string): void {
+    this.destinationCountry = destinationCountry;
+  }
 
-    getCities(): City[] {
-        return this.cities;
-    }
+  public setStartDate(startDate: Date): void {
+    this.startDate = startDate;
+  }
 
-    getGuide(): Guide {
-        return this.guide;
-    }
+  public setEndDate(endDate: Date): void {
+    this.endDate = endDate;
+  }
 }

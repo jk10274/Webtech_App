@@ -2,20 +2,45 @@
 
 "use client";
 
-import React, { Fragment } from "react";
-import { useParams } from "next/navigation";
-import EditJourneyForm from "@/components/EditJourneyForm";
+import React, { useEffect, useState } from "react";
+import { useRouter, useParams } from "next/navigation";
+import JourneyForm from "../../../../components/JourneyForm";
+import {
+  getJourneyById,
+  updateJourney,
+} from "../../../../services/journeyService";
+import { Journey } from "@/types";
 
 const EditJourneyPage: React.FC = () => {
-  const params = useParams();
-  const id = Array.isArray(params.id) ? params.id[0] : params.id;
+  const router = useRouter();
+  const { id } = useParams();
+  const [journey, setJourney] = useState<Omit<Journey, "_id"> | null>(null);
 
-  if (!id) return <Fragment>Loading...</Fragment>;
+  useEffect(() => {
+    if (id) {
+      const fetchJourney = async () => {
+        const data = await getJourneyById(id as string);
+        setJourney({
+          destinationCountry: data.destinationCountry,
+          startDate: data.startDate,
+          endDate: data.endDate,
+        });
+      };
+      fetchJourney();
+    }
+  }, [id]);
+
+  const handleUpdateJourney = async (updatedJourney: Omit<Journey, "_id">) => {
+    await updateJourney(id as string, updatedJourney);
+    router.push(`/journeys/${id}`);
+  };
+
+  if (!journey) return <div>Loading...</div>;
 
   return (
     <div>
-      <h1>Edit Journey</h1>
-      <EditJourneyForm journeyId={id} />
+      <h1>Reise bearbeiten</h1>
+      <JourneyForm onSubmit={handleUpdateJourney} />
     </div>
   );
 };

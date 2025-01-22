@@ -2,22 +2,16 @@
 
 "use client";
 
-import React from "react";
 import { useParams } from "next/navigation";
-import Journey from "@/components/Journey";
+import JourneyCard from "@/components/JourneyCard";
 
-const JourneyPage: React.FC = () => {
+const JourneyPage = () => {
   const params = useParams();
-  const id = Array.isArray(params.id) ? params.id[0] : params.id;
+  const { id } = params;
 
   if (!id) return <div>Loading...</div>;
 
-  return (
-    <div>
-      <h1>Journey Details</h1>
-      <Journey journeyId={id} />
-    </div>
-  );
+  return <JourneyCard id={id as string} />;
 };
 
 export default JourneyPage;
