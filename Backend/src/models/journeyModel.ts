@@ -1,16 +1,16 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose from "mongoose";
 
-export interface iJourney extends Document {
+export interface iJourney extends mongoose.Document {
     country: string;
     startDate: Date;
     endDate: Date;
 }
 
-const journeySchema = new Schema({
+const journeySchema = new mongoose.Schema({
     country: { type: String, required: true },
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
-    cities: [
+    /* cities: [
         {
             name: { type: String, required: true },
             days: { type: Number, required: true }
@@ -18,7 +18,7 @@ const journeySchema = new Schema({
     ],
     guide: {
         name: { type: String, required: true }
-    }
+    } */
 });
 
 const Journey = mongoose.model<iJourney>('Journey', journeySchema);

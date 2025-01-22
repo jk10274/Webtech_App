@@ -1,4 +1,4 @@
-import Journey, {iJourney} from "../models/journeyModel";
+import Journey, { iJourney } from "../models/journeyModel";
 
 import { Request, Response } from "express";
 
@@ -7,7 +7,7 @@ async function getAllJourneys(req: Request, res: Response) {
         const journeys = await Journey.find();
         const formattedJourneys = journeys.map((journey: iJourney) => ({
             id: journey._id,
-            country: { name: journey.country},
+            country: { name: journey.country },
             startDate: journey.startDate,
             endDate: journey.endDate,
             cities: [{ name: "Sample City", days: 1 }],
