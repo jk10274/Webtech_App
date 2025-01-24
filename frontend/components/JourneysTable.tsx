@@ -5,17 +5,31 @@ import Link from "next/link";
 import styles from "./JourneysTable.module.css";
 import { getAllJourneys } from "@/services/journeyService";
 import { Journey } from "@/types";
+import useAuth from "../app/hooks/useAuth";
 
 const JourneysTable: React.FC = () => {
+  const isAuthenticated = useAuth();
   const [journeys, setJourneys] = useState<Journey[]>([]);
 
   useEffect(() => {
-    const fetchJourneys = async () => {
-      const data = await getAllJourneys();
-      setJourneys(data);
-    };
-    fetchJourneys();
-  }, []);
+    if (isAuthenticated) {
+      const fetchJourneys = async () => {
+        try {
+          const data = await getAllJourneys();
+          setJourneys(data);
+        } catch (error) {
+          console.error("Error fetching journeys:", error);
+        }
+      };
+
+      fetchJourneys();
+    }
+  }, [isAuthenticated]);
+
+  if (!isAuthenticated) {
+    return <div>Loading...</div>;
+  }
+
 
   return (
     <div>

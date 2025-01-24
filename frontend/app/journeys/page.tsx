@@ -2,10 +2,13 @@
 
 "use client";
 
-import React from "react";
+import React, { use } from "react";
 import JourneysTable from "@/components/JourneysTable";
+import useAuth from "../hooks/useAuth";
 
 const Page: React.FC = () => {
+  useAuth();
+
   return (
     <div className="center-container">
       <JourneysTable />

@@ -16,8 +16,8 @@ const journeySchema = new mongoose.Schema({
       validator: function (v: string) {
         return /^[a-zA-Z\s]+$/.test(v);
       },
-      message: (props: { value: string }) =>
-        `${props.value} is not a valid destination country! Only letters are allowed.`,
+      message: () =>
+        `Only letters are allowed.`,
     },
   },
   startDate: {
@@ -31,8 +31,8 @@ const journeySchema = new mongoose.Schema({
       validator: function (this: any, v: Date) {
         return v > this.startDate;
       },
-      message: (props: { value: any }) =>
-        `End date (${props.value}) must be after start date.`,
+      message: () =>
+        `End date  must be after start date.`,
     },
   },
 });

@@ -10,8 +10,11 @@ import {
   updateJourney,
 } from "../../../../services/journeyService";
 import { Journey } from "@/types";
+import useAuth from "../../../hooks/useAuth";
 
 const EditJourneyPage: React.FC = () => {
+  useAuth();
+  
   const router = useRouter();
   const { id } = useParams();
   const [journey, setJourney] = useState<Omit<Journey, "_id"> | null>(null);

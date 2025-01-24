@@ -2,6 +2,7 @@
 
 import express from "express";
 import journeyRoutes from "./routes/JourneyRoutes";
+import authRoutes from "./routes/AuthRoutes";
 import cors from "cors";
 
 const app = express();
@@ -18,6 +19,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use("/api", journeyRoutes);
+app.use("/auth", authRoutes);
 
 app.use(express.static("public"));
 

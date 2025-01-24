@@ -8,8 +8,11 @@ import { useState } from "react";
 import JourneyForm from "../../../components/JourneyForm";
 import { addJourney } from "../../../services/journeyService";
 import { Journey } from "@/types";
+import useAuth from "../../hooks/useAuth";
 
 const AddJourneyPage: React.FC = () => {
+  useAuth();
+
   const router = useRouter();
   const { id } = useParams();
   const [journey, setJourney] = useState<Omit<Journey, "_id"> | null>(null);
@@ -21,7 +24,7 @@ const AddJourneyPage: React.FC = () => {
 
   return (
     <div>
-      <h1>Reise hinzufügen</h1>
+      <h1>Add Journey</h1>
       <JourneyForm onSubmit={handleAddJourney} />
     </div>
   );

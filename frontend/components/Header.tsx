@@ -11,6 +11,7 @@ const Header = () => {
         <Link href="/">JK REISEN</Link>
       </div>
       <div className={styles.rightHeader}>
+        <Link href="/login">LOGIN</Link>
         <Link href="/journeys/add">ADD JOURNEY</Link>
         <Link href="/journeys">VIEW ALL</Link>
       </div>
