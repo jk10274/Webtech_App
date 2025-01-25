@@ -6,7 +6,7 @@ import bcrypt from "bcrypt";
 const JWT_SECRET = process.env.JWT_SECRET || "secret";
 const JWT_EXPIRES_IN: number = process.env.JWT_EXPIRES_IN
   ? parseInt(process.env.JWT_EXPIRES_IN)
-  : 3600; // Besprochen: Fehler Overload
+  : 900; // Besprochen: Fehler Overload
 
 export class AuthService {
   public async signUp(username: string, password: string): Promise<iUser> {

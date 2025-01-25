@@ -1,3 +1,5 @@
+// Author: Jona Kaufmann
+
 "use client";
 
 import React from "react";
@@ -14,7 +16,7 @@ export default function Login() {
     event.preventDefault();
     const data = await signIn(username, password);
     console.log("Response from signIn:", data);
-    if (data.token && typeof data.token === "string") { // Check if token is a string to prevent error
+    if (data.token && typeof data.token === "string") { // Test ob String muss sein, da sonst auch null true ist
       console.log("Logged in successfully: " + data.token);
       localStorage.setItem("token", data.token);
       router.push("/journeys");
