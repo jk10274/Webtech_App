@@ -1,0 +1,35 @@
+Name: Jona Kaufmann
+
+Ich habe immer mit folgenden Ports gearbeitet:
+
+PORT (Backend): 3000
+PORT (Frontend): 3001
+
+Backend API Endpoints:
+
+- http://localhost:3000/api/journeys
+- http://localhost:3000/api/journeys/:id
+- http://localhost:3000/auth/signin
+- http://localhost:3000/auth/signup
+
+Frontend:
+
+- http://localhost:3001/
+- http://localhost:3001/journeys
+- http://localhost:3001/journeys/[id]
+
+Einen User hinzufügen:
+
+- http://localhost:3000/auth/signup
+- Body: {
+  "username": "User",
+  "password": "1234"
+}
+
+Journey Interface:
+
+- \_id: string
+- destinationCountry: string
+- startDate: Date
+- endDate: Date
+

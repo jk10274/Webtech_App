@@ -2,11 +2,8 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { Journey } from "@/types";
-
-export default function Home() {/* 
+export default function Home() {
+  /* 
   const [journeys, setJourneys] = useState<Journey[]>([]);
 
   useEffect(() => {

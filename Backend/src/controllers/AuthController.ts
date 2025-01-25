@@ -1,3 +1,5 @@
+// Author: Jona Kaufmann
+
 import { Request, Response } from "express";
 import AuthService from "../services/AuthService";
 

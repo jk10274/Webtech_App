@@ -1,3 +1,5 @@
+// Author: Jona Kaufmann
+
 import jwt from "jsonwebtoken";
 import User, { iUser } from "../models/UserModel";
 import { HydratedDocument } from "mongoose";
