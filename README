@@ -28,8 +28,7 @@ Einen User hinzufügen:
 
 Journey Interface:
 
-- \_id: string
+- _id: string
 - destinationCountry: string
 - startDate: Date
 - endDate: Date
-
